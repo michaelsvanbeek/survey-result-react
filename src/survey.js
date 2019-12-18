@@ -13,12 +13,12 @@ const survey = {
         {
           'answer':"Yes",
           'action': {'like_surveys':'yes'},
-          'selectedIf': (state) => (state.like_surveys == 'yes')
+          'selectedIf': (state) => (state.like_surveys === 'yes')
         },
         {
           'answer':"No",
           'action':{'like_surveys':'no'},
-          'selectedIf': (state) => (state.like_surveys == 'no')
+          'selectedIf': (state) => (state.like_surveys === 'no')
         },
       ]
     },
@@ -28,26 +28,26 @@ const survey = {
         {
           'answer':"Red",
           'action':{'favorite_color':'red'},
-          'selectedIf': (state) => (state.favorite_color == 'red')
+          'selectedIf': (state) => (state.favorite_color === 'red')
         },
         {
           'answer':"Green",
           'action':{'favorite_color':'green'},
-          'selectedIf': (state) => (state.favorite_color == 'green')
+          'selectedIf': (state) => (state.favorite_color === 'green')
         },
         {
           'answer':"Blue",
           'action':{'favorite_color':'blue'},
-          'selectedIf': (state) => (state.favorite_color == 'blue')
+          'selectedIf': (state) => (state.favorite_color === 'blue')
         },
       ]
     },
   ],
   'result':function(state) {
   	return (
-  		<div>
+  		<h3>
   			You do {state.like_surveys == 'no' && "not"} like surveys and your favorite color is {state.favorite_color}
-  		</div>
+  		</h3>
   	);
   }
 };

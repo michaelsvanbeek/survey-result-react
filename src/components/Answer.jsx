@@ -8,7 +8,7 @@ function Answer(props) {
 		'padding':'1em',
 	};
 	if (props.selectedIf(props.state)) {
-		style.backgroundColor = 'blue';
+		style.backgroundColor = 'lightBlue';
 	}
 
 	return (
