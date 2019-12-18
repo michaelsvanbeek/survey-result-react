@@ -12,11 +12,13 @@ const survey = {
       'answers':[
         {
           'answer':"Yes",
-          'action': {'like_surveys':'yes'}
+          'action': {'like_surveys':'yes'},
+          'selectedIf': (state) => (state.like_surveys == 'yes')
         },
         {
           'answer':"No",
-          'action':{'like_surveys':'no'}
+          'action':{'like_surveys':'no'},
+          'selectedIf': (state) => (state.like_surveys == 'no')
         },
       ]
     },
@@ -25,15 +27,18 @@ const survey = {
       'answers':[
         {
           'answer':"Red",
-          'action':{'favorite_color':'red'}
+          'action':{'favorite_color':'red'},
+          'selectedIf': (state) => (state.favorite_color == 'red')
         },
         {
           'answer':"Green",
-          'action':{'favorite_color':'green'}
+          'action':{'favorite_color':'green'},
+          'selectedIf': (state) => (state.favorite_color == 'green')
         },
         {
           'answer':"Blue",
-          'action':{'favorite_color':'blue'}
+          'action':{'favorite_color':'blue'},
+          'selectedIf': (state) => (state.favorite_color == 'blue')
         },
       ]
     },

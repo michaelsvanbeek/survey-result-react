@@ -7,6 +7,9 @@ function Answer(props) {
 		'fontSize':'1.75em',
 		'padding':'1em',
 	};
+	if (props.selectedIf(props.state)) {
+		style.backgroundColor = 'blue';
+	}
 
 	return (
 		<div style={style} onClick={() => { props.setState({...props.state,...props.action}) } }>
