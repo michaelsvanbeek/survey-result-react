@@ -5,7 +5,17 @@ import survey from './survey';
 
 function App() {
 
-  return (Survey(survey));
+  const containerStyle = {
+    'width':'72em',
+    'marginLeft':'auto',
+    'marginRight':'auto'
+  }
+
+  return (
+    <div style={containerStyle}>
+      {Survey(survey)}
+    </div>
+  );
 }
 
 export default App;

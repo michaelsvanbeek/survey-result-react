@@ -3,10 +3,14 @@ import Answer from './Answer';
 
 function Question(props) {
 
-	const style = {'border':'1px solid black'}
+	const questionStyle = {
+		//'border':'1px solid black',
+		'marginTop':'4em',
+		'marginBottom':'4em'
+	};
 
 	return (
-		<div style={style}>
+		<div style={questionStyle}>
 			<h2>{props.question}</h2>
 			{
 				props.answers.map((answer) => Answer({
