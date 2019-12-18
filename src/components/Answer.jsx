@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Answer(props) {
+const Answer = (props) => {
 
 	const answerStyle = {
 		//'border':'1px solid black',
@@ -12,7 +12,7 @@ function Answer(props) {
 	}
 
 	return (
-		<div style={answerStyle} onClick={() => { props.setState({...props.state,...props.action}) } }>
+		<div style={answerStyle} onClick={() => { props.setState({...props.state,...props.action(props.state)}) } }>
 			{props.answer}
 		</div>
 	);

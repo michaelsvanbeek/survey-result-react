@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Question from './Question';
 
-function Survey(props) {
+const Survey = (props) => {
   const [state, setState] = useState(props.initial_state);
 
   return (

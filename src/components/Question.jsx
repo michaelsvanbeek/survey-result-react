@@ -1,7 +1,7 @@
 import React from 'react';
 import Answer from './Answer';
 
-function Question(props) {
+const Question = (props) => {
 
 	const questionStyle = {
 		//'border':'1px solid black',

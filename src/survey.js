@@ -3,8 +3,8 @@ import React from 'react';
 const survey = {
 	'name':'Demo Survey',
   'initial_state': {
-    'like_surveys':'no',
-    'favorite_color':'none',
+    'like_surveys':'',
+    'favorite_color':'',
   },
   'questions': [
     {
@@ -12,12 +12,12 @@ const survey = {
       'answers':[
         {
           'answer':"Yes",
-          'action': {'like_surveys':'yes'},
+          'action': (state) => {return {'like_surveys':'yes'}},
           'selectedIf': (state) => (state.like_surveys === 'yes')
         },
         {
           'answer':"No",
-          'action':{'like_surveys':'no'},
+          'action':(state) => {return {'like_surveys':'no'}},
           'selectedIf': (state) => (state.like_surveys === 'no')
         },
       ]
@@ -27,17 +27,17 @@ const survey = {
       'answers':[
         {
           'answer':"Red",
-          'action':{'favorite_color':'red'},
+          'action':(state) => {return {'favorite_color':'red'}},
           'selectedIf': (state) => (state.favorite_color === 'red')
         },
         {
           'answer':"Green",
-          'action':{'favorite_color':'green'},
+          'action':(state) => {return {'favorite_color':'green'}},
           'selectedIf': (state) => (state.favorite_color === 'green')
         },
         {
           'answer':"Blue",
-          'action':{'favorite_color':'blue'},
+          'action':(state) => {return {'favorite_color':'blue'}},
           'selectedIf': (state) => (state.favorite_color === 'blue')
         },
       ]
