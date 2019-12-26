@@ -10,7 +10,7 @@ const Question = (props) => {
 	};
 
 	return (
-		<div style={questionStyle}>
+		<div style={questionStyle} key={props._id}>
 			<h2>{props.question}</h2>
 			{
 				props.answers.map((answer) => Answer({
