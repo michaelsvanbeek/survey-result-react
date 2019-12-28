@@ -3,18 +3,12 @@ import React, {
   useState,
 } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { getSurveys } from '../api/SurveyAPI';
 
 const SurveyList = (props) => {
   const [surveys, setSurveys] = useState([]);
   useEffect(() => {
-    async function fetchSurveys() {
-      const result = await axios(
-        'http://localhost:3000/surveys/'
-      );
-      setSurveys(result.data);
-    }
-    fetchSurveys();
+    getSurveys().then(setSurveys)
   }, []);
 
   return (

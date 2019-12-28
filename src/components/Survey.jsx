@@ -3,10 +3,10 @@ import React, {
   useState, 
 } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import * as babel from '@babel/standalone';
 import * as babelReact from '@babel/preset-react';
 import Question from './Question';
+import { getSurvey } from '../api/SurveyAPI'; 
 
 const babelSettings = {
   parserOpts: {
@@ -27,14 +27,7 @@ const Survey = () => {
   const [surveyDef, setSurveyDef] = useState(loadingSurvey);
   const [state, setState] = useState({});
   useEffect(() => {
-    async function fetchSurvey() {
-      const result = await axios(
-        'http://localhost:3000/surveys/' + surveyId
-      );
-      setSurveyDef(result.data);
-      setState(result.data.initialState);
-    }
-    fetchSurvey();
+    getSurvey(surveyId).then(setSurveyDef)
   }, [surveyId]);
 
   const surveyStyle = {

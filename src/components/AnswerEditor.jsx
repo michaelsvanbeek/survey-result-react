@@ -2,20 +2,28 @@ import React from 'react';
 import CodeEditor from './CodeEditor';
 
 const AnswerEditor = (props) => {
+
+  const updateSurveyAnswer = (changes) => {
+    let updatedSurvey = { ...props.surveyDef };
+    updatedSurvey.questions[props.q_index].answers[props.a_index] = {
+      ...updatedSurvey.questions[props.q_index].answers[props.a_index],
+      ...changes
+    };
+    props.setSurveyDef(updatedSurvey);
+  };
+
   return (
-    <table key={props._id}>
+    <table key={props._id} style={ {'border':'1px solid grey'} }>
       <tbody>
         <tr>
-          <td>Answer {props.a_index}</td>
+          <td>Answer</td>
           <td>
             <input
               type="text"
               size={50}
               value={props.answer}
               onChange={e => {
-                let updatedSurvey = { ...props.surveyDef };
-                updatedSurvey.questions[props.q_index].answers[props.a_index].answer = e.target.value;
-                props.setSurveyDef(updatedSurvey);
+                updateSurveyAnswer({ 'answer': e.target.value })
               }} 
             />
           </td>
@@ -26,9 +34,7 @@ const AnswerEditor = (props) => {
             <CodeEditor 
               code={props.action} 
               onValueChange={(code) => {
-                let updatedSurvey = { ...props.surveyDef };
-                updatedSurvey.questions[props.q_index].answers[props.a_index].action = code;
-                props.setSurveyDef(updatedSurvey);
+                updateSurveyAnswer({ 'action': code })
               }}
             />
           </td>
@@ -39,9 +45,7 @@ const AnswerEditor = (props) => {
             <CodeEditor 
               code={props.selectedIf} 
               onValueChange={(code) => {
-                let updatedSurvey = { ...props.surveyDef };
-                updatedSurvey.questions[props.q_index].answers[props.a_index].selectedIf = code;
-                props.setSurveyDef(updatedSurvey);
+                updateSurveyAnswer({ 'selectedIf': code })
               }}
             />
           </td>

@@ -4,7 +4,7 @@ import AnswerEditor from './AnswerEditor';
 const QuestionEditor = (props) => {
 
   const questionStyle = {
-    //'border':'1px solid black',
+    'border':'1px solid grey',
     'marginTop': '4em',
     'marginBottom': '4em'
   };
@@ -15,31 +15,62 @@ const QuestionEditor = (props) => {
 
   const q_index = props.q_index;
 
+  const updateSurveyQuestion = (changes) => {
+    let updatedSurvey = { ...props.surveyDef };
+    updatedSurvey.questions[props.q_index] = {
+      ...updatedSurvey.questions[props.q_index],
+      ...changes
+    };
+    props.setSurveyDef(updatedSurvey);
+  };
+
   return (
     <div style={questionStyle} key={props._id}>
       <h2>
-        Question {q_index}: 
+        Question: 
         <input 
           type="text" 
           size={50}
           value={props.question} 
           onChange={e => {
-            let updatedSurvey = { ...props.surveyDef };
-            updatedSurvey.questions[q_index].question = e.target.value;
-            props.setSurveyDef(updatedSurvey);
+            updateSurveyQuestion({'question':e.target.value});
           } } 
           style={questionHeaderStyle } 
         />
       </h2>
-      {
-        props.answers.map((answer, a_index) => AnswerEditor({
-          ...answer,
-          q_index,
-          a_index,
-          'surveyDef':props.surveyDef,
-          'setSurveyDef': props.setSurveyDef,
-        }))
-      }
+      <table>
+        <tbody>
+          {
+            props.answers.map((answer, a_index) => (
+              <tr>
+                <td>
+                  <button>
+                    Remove Answer
+                  </button>
+                </td>
+                <td>
+                {
+                  AnswerEditor({
+                    ...answer,
+                    q_index,
+                    a_index,
+                    'surveyDef': props.surveyDef,
+                    'setSurveyDef': props.setSurveyDef,
+                  })
+                }
+                </td>
+              </tr>
+            ))
+          }
+          <tr>
+            <td>
+              <button>
+                Add Answer
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

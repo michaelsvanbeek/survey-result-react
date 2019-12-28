@@ -3,9 +3,9 @@ import React, {
   useState,
 } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import QuestionEditor from './QuestionEditor';
 import CodeEditor from './CodeEditor';
+import { getSurvey, putSurvey } from '../api/SurveyAPI'; 
 
 const loadingSurvey = {
   'name': 'loading...',
@@ -18,13 +18,7 @@ const Survey = () => {
   let { surveyId } = useParams();
   const [surveyDef, setSurveyDef] = useState(loadingSurvey);
   useEffect(() => {
-    async function fetchSurvey() {
-      const result = await axios(
-        'http://localhost:3000/surveys/' + surveyId
-      );
-      setSurveyDef(result.data);
-    }
-    fetchSurvey();
+    getSurvey(surveyId).then(setSurveyDef)
   }, [surveyId]);
 
   const surveyStyle = {
@@ -61,14 +55,36 @@ const Survey = () => {
       </div>
       <div>
         <h1>Questions</h1>
-        {
-          surveyDef.questions.map((question, q_index) => QuestionEditor({
-            ...question,
-            surveyDef,
-            setSurveyDef,
-            q_index
-          }))
-        }
+        <table>
+          <tbody>
+            {
+              surveyDef.questions.map((question, q_index) => (
+                <tr>
+                  <td>
+                    <button>
+                      Remove Question
+                    </button>
+                  </td>
+                  <td>
+                    {QuestionEditor({
+                      ...question,
+                      surveyDef,
+                      setSurveyDef,
+                      q_index
+                    })}
+                  </td>
+                </tr>
+              ))
+            }
+            <tr>
+              <td>
+                <button>
+                  Add Question
+              </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div>
         <h1>Result</h1>
@@ -83,6 +99,16 @@ const Survey = () => {
           }}
         />
       </div>
+      <button 
+        onClick={ 
+          () => {
+            let updatedSurveyDef = {...surveyDef};
+            delete updatedSurveyDef._id;
+            putSurvey(updatedSurveyDef).then(() => {})
+          } 
+        }>
+          Update Survey
+      </button>
     </div>
   );
 }
