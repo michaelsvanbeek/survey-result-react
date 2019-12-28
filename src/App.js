@@ -1,23 +1,28 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 import Survey from './components/Survey';
+import SurveyEditor from './components/SurveyEditor';
+import SurveyList from './components/SurveyList';
 
 function App() {
-  const surveyId = "5e04670da63c1e6585f6e52a";
-
-  const [surveyDef, setSurveyDef] = useState({'name':'loading...','initialState':{},'questions':[],'result':''});
-  useEffect(() => {
-    async function fetchSurvey() {
-      const result = await axios(
-        'http://localhost:3000/surveys/' + surveyId
-      );
-      setSurveyDef(result.data);
-    }
-    fetchSurvey();
-  }, []);
-
   return (
-      Survey(surveyDef)
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <SurveyList />
+        </Route>
+        <Route path="/survey/:surveyId/edit">
+          <SurveyEditor />
+        </Route>
+        <Route path="/survey/:surveyId">
+          <Survey />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
