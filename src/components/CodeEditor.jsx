@@ -9,7 +9,7 @@ const CodeEditor = (props) => {
   return (
     <Editor
       value={props.code}
-      onValueChange={code => {} }
+      onValueChange={props.onValueChange}
       highlight={code => highlight(code, languages.js)}
       padding={10}
       style={{

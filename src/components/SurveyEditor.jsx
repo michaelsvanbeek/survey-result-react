@@ -47,20 +47,41 @@ const Survey = () => {
       </div>
       <div>
         <h1>Initial State</h1>
-        <CodeEditor code={JSON.stringify(surveyDef.initialState)} />
+        <CodeEditor 
+          code={JSON.stringify(surveyDef.initialState)} 
+          onValueChange={(code) => {
+            let initialState = JSON.parse(code)
+            let updatedSurveyDef = {
+              ...surveyDef,
+              initialState
+            }
+            setSurveyDef(updatedSurveyDef);
+          }}
+        />
       </div>
       <div>
         <h1>Questions</h1>
         {
           surveyDef.questions.map((question, q_index) => QuestionEditor({
             ...question,
+            surveyDef,
+            setSurveyDef,
             q_index
           }))
         }
       </div>
       <div>
         <h1>Result</h1>
-        <CodeEditor code={surveyDef.result} />
+        <CodeEditor 
+          code={surveyDef.result} 
+          onValueChange={(code) => {
+            let updatedSurveyDef = {
+              ...surveyDef,
+              'result' : code
+            }
+            setSurveyDef(updatedSurveyDef);
+          }}
+        />
       </div>
     </div>
   );

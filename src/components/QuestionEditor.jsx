@@ -23,14 +23,21 @@ const QuestionEditor = (props) => {
           type="text" 
           size={50}
           value={props.question} 
-          onChange={e => { }} style={questionHeaderStyle } 
+          onChange={e => {
+            let updatedSurvey = { ...props.surveyDef };
+            updatedSurvey.questions[q_index].question = e.target.value;
+            props.setSurveyDef(updatedSurvey);
+          } } 
+          style={questionHeaderStyle } 
         />
       </h2>
       {
         props.answers.map((answer, a_index) => AnswerEditor({
           ...answer,
           q_index,
-          a_index
+          a_index,
+          'surveyDef':props.surveyDef,
+          'setSurveyDef': props.setSurveyDef,
         }))
       }
     </div>
