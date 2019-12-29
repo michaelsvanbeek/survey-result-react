@@ -14,6 +14,11 @@ const loadingSurvey = {
   'result': '',
 };
 
+const templateQuestion = {
+  question: 'New question',
+  answers: []
+};
+
 const Survey = () => {
   let { surveyId } = useParams();
   const [surveyDef, setSurveyDef] = useState(loadingSurvey);
@@ -26,6 +31,26 @@ const Survey = () => {
     'marginRight': 'auto',
     'minWidth': '36em',
     'maxWidth': '72em'
+  };
+
+  const updateSurvey = (changes) => {
+    let updatedSurvey = { 
+      ...surveyDef,
+      ...changes
+    };
+    setSurveyDef(updatedSurvey);
+  };
+
+  const addQuestion = () => {
+    let updatedSurvey = {...surveyDef};
+    updatedSurvey.questions.push(templateQuestion);
+    setSurveyDef(updatedSurvey);
+  };
+
+  const removeQuestion = (q_index) => {
+    let updatedSurvey = { ...surveyDef };
+    updatedSurvey.questions.splice(q_index,1);
+    setSurveyDef(updatedSurvey);
   };
 
   return (
@@ -44,12 +69,7 @@ const Survey = () => {
         <CodeEditor 
           code={JSON.stringify(surveyDef.initialState)} 
           onValueChange={(code) => {
-            let initialState = JSON.parse(code)
-            let updatedSurveyDef = {
-              ...surveyDef,
-              initialState
-            }
-            setSurveyDef(updatedSurveyDef);
+            updateSurvey({ initialState: JSON.parse(code)});
           }}
         />
       </div>
@@ -61,7 +81,7 @@ const Survey = () => {
               surveyDef.questions.map((question, q_index) => (
                 <tr>
                   <td>
-                    <button>
+                    <button onClick={() => { removeQuestion(q_index) }}>
                       Remove Question
                     </button>
                   </td>
@@ -78,7 +98,7 @@ const Survey = () => {
             }
             <tr>
               <td>
-                <button>
+                <button onClick={addQuestion} >
                   Add Question
               </button>
               </td>
@@ -91,20 +111,14 @@ const Survey = () => {
         <CodeEditor 
           code={surveyDef.result} 
           onValueChange={(code) => {
-            let updatedSurveyDef = {
-              ...surveyDef,
-              'result' : code
-            }
-            setSurveyDef(updatedSurveyDef);
+            updateSurvey({result: code})
           }}
         />
       </div>
       <button 
         onClick={ 
           () => {
-            let updatedSurveyDef = {...surveyDef};
-            delete updatedSurveyDef._id;
-            putSurvey(updatedSurveyDef).then(() => {})
+            putSurvey(surveyDef).then(() => {})
           } 
         }>
           Update Survey

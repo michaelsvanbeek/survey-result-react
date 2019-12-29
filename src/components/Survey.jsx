@@ -2,7 +2,7 @@ import React, {
   useEffect,
   useState, 
 } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import * as babel from '@babel/standalone';
 import * as babelReact from '@babel/preset-react';
 import Question from './Question';
@@ -60,6 +60,7 @@ const Survey = () => {
       <div style={title}>
         {surveyDef.name}
       </div>
+      <Link to={"/survey/" + surveyDef._id + "/edit"}>Edit</Link>
       <div style={container}>
         <div style={left}>
           <h1>Questions</h1>

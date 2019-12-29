@@ -3,6 +3,12 @@ import AnswerEditor from './AnswerEditor';
 
 const QuestionEditor = (props) => {
 
+  const templateAnswer = {
+    answer: '',
+    action: 'return {"value":"newValue"}',
+    selectedIf: 'return state.value === "newValue"'
+  };
+
   const questionStyle = {
     'border':'1px solid grey',
     'marginTop': '4em',
@@ -21,6 +27,18 @@ const QuestionEditor = (props) => {
       ...updatedSurvey.questions[props.q_index],
       ...changes
     };
+    props.setSurveyDef(updatedSurvey);
+  };
+
+  const addAnswer = () => {
+    let updatedSurvey = { ...props.surveyDef };
+    updatedSurvey.questions[props.q_index].answers.push(templateAnswer);
+    props.setSurveyDef(updatedSurvey);
+  };
+
+  const removeAnswer = (a_index) => {
+    let updatedSurvey = { ...props.surveyDef };
+    updatedSurvey.questions[props.q_index].answers.splice(a_index,1);
     props.setSurveyDef(updatedSurvey);
   };
 
@@ -44,7 +62,7 @@ const QuestionEditor = (props) => {
             props.answers.map((answer, a_index) => (
               <tr>
                 <td>
-                  <button>
+                  <button onClick={() => { removeAnswer(a_index) }}>
                     Remove Answer
                   </button>
                 </td>
@@ -64,7 +82,7 @@ const QuestionEditor = (props) => {
           }
           <tr>
             <td>
-              <button>
+              <button onClick={addAnswer}>
                 Add Answer
               </button>
             </td>

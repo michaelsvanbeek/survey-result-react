@@ -12,8 +12,17 @@ export const getSurvey = (surveyId) => {
     .then((result) => result.data);
 };
 
-export const putSurvey = (survey) => {
+export const postSurvey = (survey) => {
   return axios
-    .put('http://localhost:3000/surveys/' + survey._id, survey)
+    .post('http://localhost:3000/surveys/' + survey._id, survey)
+    .then((result) => result.data);
+};
+
+export const putSurvey = (survey) => {
+  let surveyId = survey._id;
+  let updatedSurvey = {...survey};
+  delete updatedSurvey._id;
+  return axios
+    .put('http://localhost:3000/surveys/' + surveyId, updatedSurvey)
     .then((result) => result.data);
 };
