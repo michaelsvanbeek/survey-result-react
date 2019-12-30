@@ -1,28 +1,18 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom';
-import Survey from './components/Survey';
-import SurveyEditor from './components/SurveyEditor';
-import SurveyList from './components/SurveyList';
+import AppRouter from './components/AppRouter';
 
 function App() {
+  const containerStyle = {
+    'marginLeft': 'auto',
+    'marginRight': 'auto',
+    'minWidth': '36em',
+    'maxWidth': '72em'
+  };
+
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <SurveyList />
-        </Route>
-        <Route path="/survey/:surveyId/edit">
-          <SurveyEditor />
-        </Route>
-        <Route path="/survey/:surveyId">
-          <Survey />
-        </Route>
-      </Switch>
-    </Router>
+    <div style={containerStyle}>
+      <AppRouter />
+    </div>
   );
 }
 
