@@ -11,8 +11,6 @@ const QuestionEditor = (props) => {
 
   const questionStyle = {
     'border':'1px solid grey',
-    'marginTop': '4em',
-    'marginBottom': '4em'
   };
 
   const questionHeaderStyle = {

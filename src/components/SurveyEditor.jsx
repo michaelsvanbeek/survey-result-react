@@ -26,13 +26,6 @@ const Survey = () => {
     getSurvey(surveyId).then(setSurveyDef)
   }, [surveyId]);
 
-  const surveyStyle = {
-    'marginLeft': 'auto',
-    'marginRight': 'auto',
-    'minWidth': '36em',
-    'maxWidth': '72em'
-  };
-
   const updateSurvey = (changes) => {
     let updatedSurvey = { 
       ...surveyDef,
@@ -54,7 +47,7 @@ const Survey = () => {
   };
 
   return (
-    <div style={surveyStyle}>
+    <div>
       <div style={ {'fontSize': '4em'} }>
         <input 
           type="text" 

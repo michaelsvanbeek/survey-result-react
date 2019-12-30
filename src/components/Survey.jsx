@@ -30,12 +30,6 @@ const Survey = () => {
     getSurvey(surveyId).then(setSurveyDef)
   }, [surveyId]);
 
-  const surveyStyle = {
-    'marginLeft':'auto',
-    'marginRight':'auto',
-    'minWidth':'36em',
-    'maxWidth':'72em'
-  };
   const title = {
     'fontSize':'4em'
   };
@@ -56,7 +50,7 @@ const Survey = () => {
   const resultFunction = Function('state','React', resultBabelTransformed);
 
   return (
-    <div style={surveyStyle}>
+    <div>
       <div style={title}>
         {surveyDef.name}
       </div>
