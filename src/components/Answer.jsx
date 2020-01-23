@@ -12,11 +12,17 @@ const Answer = (props) => {
 	const actionFunc = Function('state', props.action);
 
 	if (selectedIfFunc(props.state)) {
-		answerStyle.backgroundColor = 'lightBlue';
+		answerStyle.backgroundColor = props.config.selectedColor;
+	} else {
+		answerStyle.backgroundColor = props.config.unSelectedColor;
 	}
 
 	return (
-		<div key={props._id} style={answerStyle} onClick={() => { props.setState({ ...props.state, ...actionFunc(props.state)}) } }>
+		<div 
+			key={props._id} 
+			style={answerStyle} 
+			onClick={() => { props.setState({ ...props.state, ...actionFunc(props.state)}) } }
+		>
 			{props.answer}
 		</div>
 	);

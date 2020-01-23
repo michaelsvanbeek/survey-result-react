@@ -2,26 +2,17 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import QuestionEditor from './QuestionEditor';
 import CodeEditor from './CodeEditor';
-import { getSurvey, putSurvey } from '../api/SurveyAPI'; 
-
-const loadingSurvey = {
-  'name': 'loading...',
-  'initialState': {},
-  'questions': [],
-  'result': '',
-};
-
-const templateQuestion = {
-  question: 'New question',
-  answers: []
-};
+import { getSurvey, putSurvey } from '../api/SurveyAPI';
+import { surveyTemplate } from '../classes/Survey';
+import { questionTemplate } from '../classes/Question';
 
 const Survey = () => {
   let { surveyId } = useParams();
-  const [surveyDef, setSurveyDef] = useState(loadingSurvey);
+  const [redirect, setRedirect] = useState(false);
+  const [surveyDef, setSurveyDef] = useState(surveyTemplate);
   useEffect(() => {
     getSurvey(surveyId).then(setSurveyDef)
   }, [surveyId]);
@@ -36,7 +27,7 @@ const Survey = () => {
 
   const addQuestion = () => {
     let updatedSurvey = {...surveyDef};
-    updatedSurvey.questions.push(templateQuestion);
+    updatedSurvey.questions.push(questionTemplate);
     setSurveyDef(updatedSurvey);
   };
 
@@ -45,6 +36,10 @@ const Survey = () => {
     updatedSurvey.questions.splice(q_index,1);
     setSurveyDef(updatedSurvey);
   };
+
+  if (redirect) {
+    return (<Redirect to={`/survey/${surveyDef._id}`} />);
+  } 
 
   return (
     <div>
@@ -60,9 +55,10 @@ const Survey = () => {
       <div>
         <h1>Initial State</h1>
         <CodeEditor 
-          code={JSON.stringify(surveyDef.initialState)} 
+          code={surveyDef.initialState} 
+          validate="json"
           onValueChange={(code) => {
-            updateSurvey({ initialState: JSON.parse(code)});
+            updateSurvey({ initialState: code});
           }}
         />
       </div>
@@ -103,15 +99,36 @@ const Survey = () => {
         <h1>Result</h1>
         <CodeEditor 
           code={surveyDef.result} 
+          validate="code"
           onValueChange={(code) => {
             updateSurvey({result: code})
           }}
         />
       </div>
+      <div>
+        <h1>Config</h1>
+        {
+        Object.entries(surveyDef.config).map((item) => (
+            <div>
+              {item[0]}: 
+              <input 
+                type='text'
+                value={item[1]}
+                onChange={(e) => {
+                  let newConfig = {...surveyDef.config};
+                  newConfig[item[0]] = e.target.value;
+                  setSurveyDef({
+                    ...surveyDef,
+                    config: newConfig})
+                  }} />
+            </div>
+          ))
+        }
+      </div>
       <button 
         onClick={ 
           () => {
-            putSurvey(surveyDef).then(() => {})
+            putSurvey(surveyDef).then(() => {setRedirect(true)})
           } 
         }>
           Update Survey

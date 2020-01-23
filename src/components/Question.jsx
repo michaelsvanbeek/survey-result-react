@@ -17,6 +17,7 @@ const Question = (props) => {
 					...answer,
 					'state':props.state,
 					'setState':props.setState,
+					'config':props.config,
 				}))
 			}
 		</div>

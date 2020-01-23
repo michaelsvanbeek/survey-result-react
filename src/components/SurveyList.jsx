@@ -14,6 +14,9 @@ const SurveyList = (props) => {
   return (
     <div>
       <h1>Surveys</h1>
+      <Link to={"/survey/create"}>
+        Create
+      </Link>
       {
         surveys.map((survey) => (
             <Link to={"/survey/" + survey._id} key={survey._id}>

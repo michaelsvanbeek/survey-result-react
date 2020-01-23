@@ -33,6 +33,7 @@ const AnswerEditor = (props) => {
           <td>
             <CodeEditor 
               code={props.action} 
+              validate="code"
               onValueChange={(code) => {
                 updateSurveyAnswer({ 'action': code })
               }}
@@ -44,6 +45,7 @@ const AnswerEditor = (props) => {
           <td>
             <CodeEditor 
               code={props.selectedIf} 
+              validate="code"
               onValueChange={(code) => {
                 updateSurveyAnswer({ 'selectedIf': code })
               }}

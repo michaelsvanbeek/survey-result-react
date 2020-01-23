@@ -4,7 +4,9 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import Survey from './Survey';
+import SinglePageSurvey from './SinglePageSurvey';
+import PagedSurvey from './PagedSurvey';
+import SurveyCreate from './SurveyCreate';
 import SurveyEditor from './SurveyEditor';
 import SurveyList from './SurveyList';
 
@@ -15,11 +17,17 @@ function AppRouter() {
         <Route exact path="/">
           <SurveyList />
         </Route>
+        <Route path="/survey/create">
+          <SurveyCreate />
+        </Route>
         <Route path="/survey/:surveyId/edit">
           <SurveyEditor />
         </Route>
         <Route path="/survey/:surveyId">
-          <Survey />
+          <SinglePageSurvey />
+        </Route>
+        <Route path="/surveyp/:surveyId">
+          <PagedSurvey />
         </Route>
       </Switch>
     </Router>

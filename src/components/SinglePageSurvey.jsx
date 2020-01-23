@@ -22,12 +22,22 @@ const loadingSurvey = {
   'result': '',
 };
 
-const Survey = () => {
+const SinglePageSurvey = () => {
   let { surveyId } = useParams();
   const [surveyDef, setSurveyDef] = useState(loadingSurvey);
   const [state, setState] = useState({});
   useEffect(() => {
-    getSurvey(surveyId).then(setSurveyDef)
+    getSurvey(surveyId)
+      .then((survey) => {
+        setSurveyDef(survey);
+        try {
+          let initialState = JSON.parse(survey.initialState);
+          console.log(initialState);
+          setState(initialState);
+        } catch(e) {
+          console.log(e);
+        }
+      })
   }, [surveyId]);
 
   const title = {
@@ -62,7 +72,8 @@ const Survey = () => {
             surveyDef.questions.map((question) => Question({
               ...question,
               'state': state,
-              'setState': setState
+              'setState': setState,
+              'config':surveyDef.config,
             }))
           }
         </div>
@@ -77,4 +88,4 @@ const Survey = () => {
   );
 }
 
-export default Survey;
+export default SinglePageSurvey;

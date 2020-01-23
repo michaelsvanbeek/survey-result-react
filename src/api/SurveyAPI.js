@@ -14,7 +14,7 @@ export const getSurvey = (surveyId) => {
 
 export const postSurvey = (survey) => {
   return axios
-    .post('http://localhost:3000/surveys/' + survey._id, survey)
+    .post('http://localhost:3000/surveys/', survey)
     .then((result) => result.data);
 };
 
