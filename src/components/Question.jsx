@@ -5,8 +5,9 @@ const Question = (props) => {
 
 	const questionStyle = {
 		//'border':'1px solid black',
-		'marginTop':'4em',
-		'marginBottom':'4em'
+		color: props.config.fontColor,
+		marginTop:'4em',
+		marginBottom:'4em',
 	};
 
 	return (

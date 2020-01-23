@@ -25,23 +25,11 @@ const loadingSurvey = {
   'config':{}
 };
 
-const gridStyle = {
-  height: '100%',
-  display: 'grid',
-  gridTemplateColumns: 'auto 72em auto',
-  gridTemplateRows: '6em auto 2em',
-};
+
 
 const titleStyle = {
   gridColumn: 2,
   gridRow: 1,
-};
-
-const bodyStyle = {
-  height: '100%',
-  border: '1px solid grey',
-  gridColumn: 2,
-  gridRow: 2,
 };
 
 const footerStyle = {
@@ -66,6 +54,23 @@ const PagedSurvey = () => {
         }
       })
   }, [surveyId]);
+
+  const gridStyle = {
+    backgroundColor: surveyDef.config.backgroundColor,
+    color: surveyDef.config.fontColor,
+    height: '100%',
+    display: 'grid',
+    gridTemplateColumns: 'auto 72em auto',
+    gridTemplateRows: '6em auto 2em',
+  };
+
+  const bodyStyle = {
+    height: '100%',
+    backgroundColor: surveyDef.config.cardColor,
+    border: surveyDef.config.cardBorder,
+    gridColumn: 2,
+    gridRow: 2,
+  };
 
   const resultBabelTransformed = babel.transform(surveyDef.result, babelSettings).code;
   // eslint-disable-next-line

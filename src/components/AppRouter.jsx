@@ -24,10 +24,10 @@ function AppRouter() {
           <SurveyEditor />
         </Route>
         <Route path="/survey/:surveyId">
-          <SinglePageSurvey />
-        </Route>
-        <Route path="/surveyp/:surveyId">
           <PagedSurvey />
+        </Route>
+        <Route path="/surveys/:surveyId">
+          <SinglePageSurvey />
         </Route>
       </Switch>
     </Router>

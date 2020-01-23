@@ -4,6 +4,7 @@ const Answer = (props) => {
 
 	const answerStyle = {
 		'fontSize':'1.5em',
+		'color':props.config.fontColor,
 		'padding':'1em',
 	};
 	// eslint-disable-next-line
